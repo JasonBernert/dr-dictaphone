@@ -13,14 +13,21 @@ body {
 
 .words {
   max-width:700px;
-  margin: 6rem auto;
+  margin: 6rem auto 40% auto;;
   position: relative;
 }
 
 .paragraph {
   display: flex;
-  padding: 1rem 0;
+  padding: 1rem;
   justify-content: space-around;
+  transform: translateY(0);
+  transition: transform 0.5s;
+}
+
+.capture {
+  opacity: 0.7;
+  transform: translateY(60px);
 }
 
 p {
@@ -95,6 +102,7 @@ h6 {
   height: 48px;
   fill: white;
 }
+
 
 
 /*@media all and (max-width: 500px) {

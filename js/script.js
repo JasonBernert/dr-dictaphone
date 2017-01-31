@@ -5,6 +5,7 @@ recognition.interimResults = true;
 
 let paragraph = document.createElement('div')
 paragraph.classList.add("paragraph");
+paragraph.classList.add('capture');
 
 let p = document.createElement('p');
 let h5 = document.createElement('h5');
@@ -27,28 +28,32 @@ recognition.addEventListener('result', e => {
     .map(result => result.transcript)
     .join('');
 
-  let confidence = Array.from(e.results)
-    .map(result => result[0].confidence)
-    .join('');
-
-  confidence = parseFloat(confidence).toFixed(3);
-
-  const date = new Date();
-  const hours = date.getHours();
-  const mins = date.getMinutes();
-  const seconds = date.getSeconds();
-
-  let timestamp = `${hours}:${("0" + mins).slice(-2)}:${("0" + seconds).slice(-2)}`;
-
   p.textContent = transcript;
 
   if(e.results[0].isFinal){
+
+    let confidence = Array.from(e.results)
+      .map(result => result[0].confidence)
+      .join('');
+
+    confidence = parseFloat(confidence).toFixed(3);
+
+    const date = new Date();
+    const hours = date.getHours();
+    const mins = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    let timestamp = `${hours}:${("0" + mins).slice(-2)}:${("0" + seconds).slice(-2)}`;
+
     h5.textContent = timestamp;
     h6.textContent = `${(confidence * 100).toFixed(1)}%`;
     p.contentEditable = true;
+    paragraph.classList.remove('capture');
 
     paragraph = document.createElement('div')
     paragraph.classList.add("paragraph");
+    paragraph.classList.add('capture');
+
     h6 = document.createElement('h6');
     p = document.createElement('p');
     h5 = document.createElement('h5');
@@ -57,8 +62,8 @@ recognition.addEventListener('result', e => {
     paragraph.appendChild(h5);
     paragraph.appendChild(p);
     paragraph.appendChild(h6);
+
   }
-  // console.log(e);
 })
 
 let listening = false;
@@ -74,4 +79,5 @@ function toggleListening(){
 }
 
 recognition.addEventListener('end', toggleUtterance);
-listenButton.addEventListener('click', toggleListening);
+listenButton.addEventListener('mousedown', toggleListening);
+listenButton.addEventListener('touchstart', toggleListening);
