@@ -12,17 +12,51 @@ body {
 }
 
 .words {
-  max-width:700px;
+  max-width: 48em;
   margin: 6rem auto 40% auto;;
   position: relative;
 }
 
 .paragraph {
   display: flex;
+  flex-flow: row wrap;
   padding: 1rem;
-  justify-content: space-around;
   transform: translateY(0);
   transition: transform 0.5s;
+}
+
+.paragraph:hover h6 {
+  opacity: 1;
+}
+
+p {
+  flex: 1 20em;
+  order: 2;
+  padding: 0 1em;
+  font-size: 18px;
+  color: #47433F;
+  margin-top: 0 !important;
+  line-height: 1.75em;
+}
+
+h5 {
+  flex: 1 4em;
+  order: 1;
+
+  margin-top: 0.6em;
+  color: #C5CEC6;
+  font-weight: lighter;
+}
+
+h6 {
+  flex: 1 4em;
+  order: 3;
+
+  margin-top: 1em;
+  color: #C5CEC6;
+  font-weight: lighter;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
 .capture {
@@ -30,35 +64,14 @@ body {
   transform: translateY(60px);
 }
 
-p {
-  font-size: 18px;
-  color: #47433F;
-  flex-basis: 80%;
-  padding: 0 2rem;
-  margin-top: 0 !important;
-  line-height: 1.75em;
+.warning {
+    height: 20px;
+    width: 20px;
 }
 
-h5 {
-  flex-basis: 10%;
-  margin: 0.45rem 0 0 0;
-  text-align: right;
-  color: #C5CEC6;
-  font-weight: lighter;
-}
-
-h6 {
-  flex-basis: 10%;
-  margin-top: 0.6rem;
-  color: #C5CEC6;
-  font-weight: lighter;
-  opacity: 0;
-  transition: opacity 0.3s;
-
-}
-
-.paragraph:hover h6 {
-  opacity: 1;
+.lock {
+  height: 20px;
+  width: 20px;
 }
 
 .panel {
@@ -78,49 +91,56 @@ h6 {
   justify-content: center;
 }
 
+button:focus {
+  outline:0;
+}
+
 .listen-button {
+  display: flex;
   width: 64px;
   height: 64px;
   margin: auto;
   align-self: flex-end;
   background-color: #40BA69;
+  border-width: 0px;
   border-radius: 32px;
-  border: 1px #24D075 solid;
+  box-shadow: 0px 4px 6px #d1d2d3;
   transform: scale(1);
-  transition: transform 0.5s;
+  transition: transform 0.5s, box-shadow 0.5s;
 }
 
-.active{
+@keyframes pulse {
+    0%   {background-color:#EC4741; box-shadow: 0px 0px 10px #EC4741;}
+    100% {background-color:#e85a55; box-shadow: 0px 0px 48px #EC4741;}
+}
+
+.active {
   background-color: #EC4741;
-  border: 1px #EC4741 solid;
+  box-shadow: 0px 0px 10px #EC4741;
   transform: scale(0.95);
+  -webkit-animation: pulse 2s linear 0.5s infinite alternate;
+  animation: pulse 2s linear infinite 0.5s alternate;
 }
 
 .listen-button svg {
-  padding: 12px 8px;
-  width: 48px;
-  height: 48px;
+  margin: auto;
+  width: 40px;
+  height: 40px;
   fill: white;
 }
 
 
 
-/*@media all and (max-width: 500px) {
-
-  .paragraph {
-    flex-direction: column;
-  }
+@media all and (max-width: 600px) {
 
   p {
-    margin: 0;
-  }
-
-  h5 {
-    text-align: left;
+    flex: 1 100%;
+    padding: 0;
   }
 
   h6 {
     text-align: right;
+    order: 1;
   }
 
-}*/
+}

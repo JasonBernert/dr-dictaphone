@@ -18,8 +18,9 @@ const listenButton = document.querySelector('.listen-button');
 
 words.appendChild(paragraph);
 paragraph.appendChild(h5);
-paragraph.appendChild(p);
 paragraph.appendChild(h6);
+paragraph.appendChild(p);
+
 
 recognition.addEventListener('result', e => {
 
@@ -37,17 +38,21 @@ recognition.addEventListener('result', e => {
       .join('');
 
     confidence = parseFloat(confidence).toFixed(3);
-
+    if (confidence < .8){
+      h6.innerHTML = `<img class="lock" src="../svg/lock.svg" alt="locked"><img class="warning" src="../svg/warn.svg" alt="Confidence warning ${(confidence * 100).toFixed(1)} Percent">`;
+    } else {
+      h6.innerHTML = `<img class="lock" src="../svg/lock.svg" alt="locked">`;
+    }
+    
     const date = new Date();
     const hours = date.getHours();
     const mins = date.getMinutes();
     const seconds = date.getSeconds();
 
     let timestamp = `${hours}:${("0" + mins).slice(-2)}:${("0" + seconds).slice(-2)}`;
-
     h5.textContent = timestamp;
-    h6.textContent = `${(confidence * 100).toFixed(1)}%`;
-    p.contentEditable = true;
+
+    // p.contentEditable = true;
     paragraph.classList.remove('capture');
 
     paragraph = document.createElement('div')
@@ -60,8 +65,8 @@ recognition.addEventListener('result', e => {
 
     words.appendChild(paragraph);
     paragraph.appendChild(h5);
-    paragraph.appendChild(p);
     paragraph.appendChild(h6);
+    paragraph.appendChild(p);
 
   }
 })
@@ -79,5 +84,5 @@ function toggleListening(){
 }
 
 recognition.addEventListener('end', toggleUtterance);
-listenButton.addEventListener('mousedown', toggleListening);
-listenButton.addEventListener('touchstart', toggleListening);
+listenButton.addEventListener('click', toggleListening);
+listenButton.addEventListener('touchend', toggleListening);
